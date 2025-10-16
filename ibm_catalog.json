@@ -1,0 +1,144 @@
+{
+  "products": [
+    {
+      "name": "deploy-arch-ibm-policy-cos",
+      "label": "Policy Compliant Object Storage",
+      "product_kind": "solution",
+      "tags": [
+        "ibm_created",
+        "target_terraform",
+        "terraform",
+        "solution",
+        "storage"
+      ],
+      "keywords": [
+        "terraform",
+        "cos",
+        "object storage",
+        "bucket",
+        "storage",
+        "solution",
+        "IaC",
+        "infrastructure as code"
+      ],
+      "short_description": "Creates and configures a policy compliant IBM Cloud Object Storage instance and buckets",
+      "long_description": "IBM Cloud Object Storage is a highly available, durable, and secure platform for storing unstructured data. This deployable architecture is used to provision and configure [IBM Cloud Object Storage](https://cloud.ibm.com/docs/cloud-object-storage) resources. It consists of a `Single instance` variation which can be used to provision and configure the instance, and then other variations for provisioning and configuring regional and cross regional buckets.\n\nℹ️ This Terraform-based automation is part of a broader suite of IBM-maintained Infrastructure as Code (IaC) asset collection, each following the naming pattern \"Cloud automation for *servicename*\" and focusing on single IBM Cloud service. These single-service deployable architectures can be used on their own to streamline and automate service deployments through an [IaC approach](https://cloud.ibm.com/docs/secure-enterprise?topic=secure-enterprise-understanding-projects), or assembled together into a broader [automated IaC stack](https://cloud.ibm.com/docs/secure-enterprise?topic=secure-enterprise-config-stack) to automate the deployment of an end-to-end solution architecture.",
+      "support_details": "This product is in the community registry, as such support is handled through the originated repo. If you experience issues please open an issue in this repository [here](https://github.com/terraform-ibm-modules/terraform-ibm-cos/issues). Please note this product is not supported via the IBM Cloud Support Center.",
+      "offering_docs_url": "https://github.com/terraform-ibm-modules/ibmcloud-epx-iac-demo/blob/main/README.md",
+      "offering_icon_url": "https://raw.githubusercontent.com/terraform-ibm-modules/ibmcloud-epx-iac-demo/main/images/cos_icon.svg",
+      "provider_name": "IBM",
+      "features": [
+        {
+          "title": "Object Storage instance",
+          "description": "Create and configures an IBM Cloud Object Storage instance."
+        },
+        {
+          "title": "Object Storage bucket",
+          "description": "Supports both cross-regional and regional bucket creation and configuration."
+        },
+        {
+          "title": "KMS encryption",
+          "description": "Will encrypt your data using supplied encryption keys. [Learn more](https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-encryption)."
+        }
+      ],
+      "flavors": [
+        {
+          "label": "Compliant Instance and Bucket",
+          "name": "compliant-bucket-demo",
+          "index": 1,
+          "install_type": "fullstack",
+          "working_directory": "solutions/secure-bucket",
+          "compliance": {
+            "authority": "scc-wp-v1",
+            "controls": [
+              {
+                "profile": {
+                  "id": "",
+                  "name": "IBM Cloud Framework for Financial Services",
+                  "version": "1.7.0"
+                },
+                "names": [
+                  "SC-8",
+                  "SC-8(1)",
+                  "SC-11",
+                  "SC-13",
+                  "SC-23",
+                  "SC-6",
+                  "SC-7(4)(c)"
+                ]
+              }
+            ]
+          },
+          "iam_permissions": [
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+              ],
+              "service_name": "cloud-object-storage",
+              "notes": "Required to create COS bucket in existing instance."
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Reader"
+              ],
+              "service_name": "kms",
+              "notes": "Required to use existing KMS key for bucket encryption."
+            }
+          ],
+          "architecture": {
+            "features": [
+              {
+                "title": " ",
+                "description": "Configured to use IBM secure by default standards that can't be changed."
+              }
+            ],
+            "diagrams": [
+              {
+                "diagram": {
+                  "caption": "Secure COS Bucket Demo Architecture",
+                  "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-cos/main/reference-architectures/regional-bucket.svg",
+                  "type": "image/svg+xml"
+                },
+                "description": "This architecture deploys a <b>Regional IBM Cloud Object Storage Bucket</b> in Brazil São Paulo with enforced security features including <b>KMS encryption</b>, object versioning, retention policies, and lifecycle management for secure, compliant cloud storage."
+              }
+            ]
+          },
+          "configuration": [
+            {
+              "key": "ibmcloud_api_key"
+            },
+            {
+              "key": "bucket_name",
+              "required": true
+            },
+            {
+              "key": "existing_kms_key_crn",
+              "required": true
+            },
+            {
+              "key": "owner_contact_tag",
+              "required": true
+            },
+            {
+              "key": "technical_contact_tag",
+              "required": true
+            },
+            {
+              "key": "cos_instance_tags",
+              "custom_config": {
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "config_constraints": {
+                  "type": "string"
+                }
+              }
+            }
+          ],
+          "dependencies": [],
+          "dependency_version_2": true,
+          "terraform_version": "1.10.5"
+        }
+      ]
+    }
+  ]
+}
